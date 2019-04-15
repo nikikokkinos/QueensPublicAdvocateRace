@@ -26,6 +26,56 @@ var RaceResultsLayer = L.geoJson(RaceResults, {
         winnerfillColor = "Black";
         break;
       }
-      return {color: "Black", weight: 1, fillColor: winnerfillColor, fillOpacity: 1};
-      }
+      return {color: "Black", weight: 2, fillColor: winnerfillColor, fillOpacity: 1};
+      },
+      onEachFeature: onEachFeature
   }).addTo(map);
+
+  function highlightFeature(e) {
+      RaceResultsLayer = e.target;
+
+      info.update(RaceResultsLayer.feature.properties);
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          RaceResultsLayer.bringToFront();
+      }
+  }
+
+  function resetHighlight(e) {
+      RaceResultsLayer.resetStyle(e.target);
+
+      info.update();
+  }
+
+  function zoomToFeature(e) {
+      map.fitBounds(e.target.getBounds());
+  }
+
+  function onEachFeature (feature, RaceResultsLayer) {
+    RaceResultsLayer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature,
+    })
+  }
+
+  var info = L.control();
+
+    info.onAdd = function () {
+       this._div = L.DomUtil.create('div', 'info');
+       this.update();
+       return this._div;
+   };
+
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+       this._div.innerHTML =
+            '<h4>2019 Public Advocate Special Election Results</h4>' +
+           (props ? '<b>' + 'Assembly District' + ' ' + props.AssemDist +
+           ' ' + ' - Votes Cast For - ' + '</b><br/>' + 'Ulrich' + ' ' + props.QueensADs_Ulrich +
+           '</b><br/>' + 'Williams' + ' ' + props.QueensADs_Williams + '</b><br/>' + 'Viverito' + ' ' +
+           props.QueensADs_Viverito + '</b><br/>' + 'Kim' + ' ' + props.QueensADs_Kim
+           : 'Hover over an Assembly District to view voting results');
+   };
+
+   info.addTo(map);
