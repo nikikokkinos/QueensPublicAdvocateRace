@@ -16,6 +16,10 @@
   border-radius: 5px;
 }
 
+.alignright {
+	float: right;
+}
+
 #legend {
   position: absolute;
   top: 175px;
