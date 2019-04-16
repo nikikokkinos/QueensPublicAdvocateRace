@@ -4,14 +4,13 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var geojson = L.geoJSON(RaceResults, {style: style, onEachFeature: onEachFeature}).addTo(map);
+var WinnerLayer = L.geoJSON(RaceResults, {style: style, onEachFeature: onEachFeature}).addTo(map);
 
 function getfillColor(c) {
     return c === ' Ulrich ' 	? '#cc0c0c' :
-           c === ' Williams ' ? '#0d2184' :
+           c === ' Williams ' ? '#35a7ff' :
            c === ' Viverito ' ? '#c80ccc' :
            c === ' Kim '  		? '#0ccc58' :
-           c === ' Blake ' 		? '#f2e60c' :
                       					'#b7b7b5';
 }
 
@@ -20,7 +19,7 @@ function style(feature) {
         fillColor: getfillColor(feature.properties.QueensADs_Winner),
         weight: 1,
         opacity: 1,
-        color: 'white',
+        color: 'black',
         dashArray: '2',
         fillOpacity: 0.7
     };
@@ -29,7 +28,7 @@ function style(feature) {
 function highlight(e) {
     var layer = e.target;
     layer.setStyle({
-        weight: 5,
+        weight: 2.5,
         color: '#666',
         dashArray: '',
         fillOpacity: 0.7
@@ -41,7 +40,7 @@ function highlight(e) {
 }
 
 function resetHighlight(e) {
-    geojson.resetStyle(e.target);
+    WinnerLayer.resetStyle(e.target);
 		info.update();
 }
 
@@ -77,3 +76,13 @@ var info = L.control();
   };
 
 info.addTo(map);
+// 
+// var legend = L.DomUtil.create('div', 'legend'),
+//     grades = [
+// 			' Ulrich ',
+// 			' Williams ',
+// 			' Viverito ',
+// 			' Koo ',
+// 		],
+//     labels = [],
+//     from, to;
