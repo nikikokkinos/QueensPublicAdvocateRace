@@ -36,19 +36,27 @@ var RaceResultsLayer = L.geoJson(RaceResults, {
 
       info.update(RaceResultsLayer.feature.properties);
 
+      RaceResultsLayer.setStyle({
+        weight: 2,
+        color: '#666',
+        fillOpacity: 0.7
+      });
+
       if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
           RaceResultsLayer.bringToFront();
       }
   }
 
+  function zoomToFeature(e) {
+      map.fitBounds(e.target.getBounds());
+  }
+
+  // creating a function that resets the map when user hovers out
   function resetHighlight(e) {
       RaceResultsLayer.resetStyle(e.target);
 
+      // updating custom control based on mouseout
       info.update();
-  }
-
-  function zoomToFeature(e) {
-      map.fitBounds(e.target.getBounds());
   }
 
   function onEachFeature (feature, RaceResultsLayer) {
@@ -61,7 +69,7 @@ var RaceResultsLayer = L.geoJson(RaceResults, {
 
   var info = L.control();
 
-    info.onAdd = function () {
+    info.onAdd = function (map) {
        this._div = L.DomUtil.create('div', 'info');
        this.update();
        return this._div;
