@@ -5,16 +5,19 @@
 }
 
 .info {
+    position: relative;
+    top: 75px;
+    left: -790px;
     padding: 10px;
     font: 14px/16px Verdana;
     color: #efefef;
-    background: #000000;
+    background: #595959;
     opacity: .8;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .info h4 {
     margin: 5px;
-    color: #d3d3d3;
+    color: #efefef;
 }

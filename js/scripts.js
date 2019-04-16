@@ -8,7 +8,7 @@ var geojson = L.geoJSON(RaceResults, {style: style, onEachFeature: onEachFeature
 
 function getfillColor(c) {
     return c === ' Ulrich ' 	? '#cc0c0c' :
-           c === ' Williams ' ? '#1e1599' :
+           c === ' Williams ' ? '#0d2184' :
            c === ' Viverito ' ? '#c80ccc' :
            c === ' Kim '  		? '#0ccc58' :
            c === ' Blake ' 		? '#f2e60c' :
