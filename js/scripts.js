@@ -93,22 +93,6 @@ legend.onAdd = function () {
 	return div;
 	};
 
-// legend.onAdd = function () {
-//
-//     var div = L.DomUtil.create('div', 'info legend'),
-//         grades = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '],
-//         labels = [];
-//
-//     // loop through our density intervals and generate a label with a colored square for each interval
-//     for (var i = 0; i < grades.length; i++) {
-//         div.innerHTML +=
-//             '<i style="background:' + getfillColor(grades[i] + 1) + '></i> ' +
-//             grades[i] + (grades[i + 1] ? + grades[i + 1] + '<br>' : ' ');
-//     }
-//
-//     return div;
-// };
-
 legend.addTo(map);
 
 var TotalVotesLayer = L.geoJSON(RaceResults, {style: votesStyle, onEachFeature: votesonEachFeature})
@@ -221,7 +205,7 @@ map.on('baselayerchange', function(eventLayer) {
   	$('.info').show()
   }
 	if (eventLayer.name === 'Who Won each AD'){
-		$('#legend').show()
+		$('.legend').show()
 	}
   if (eventLayer.name === 'Who Won each AD'){
   	$('.voterturnoutinfo').hide()
@@ -239,6 +223,6 @@ map.on('baselayerchange', function(eventLayer) {
   	$(".info").hide()
   }
 	if (eventLayer.name === 'Voter Turnout'){
-		$("#legend").hide()
+		$(".legend").hide()
 	}
 });
