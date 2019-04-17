@@ -77,18 +77,18 @@ var info = L.control();
 
 info.addTo(map);
 
-var winners, wLen, i, legend;
+var winners, wLen, legend;
 
 winners = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '];
 wLen = winners.length
 legend = L.control();
 
 legend.onAdd = function () {
-	var div = L.DomUtil.create('div', 'info legend');
+	var div = L.DomUtil.create('div', 'legend');
 
-	for (i = 0; i < wLen; i++) {
+	for (var i = 0; i < wLen; i++) {
 		div.innerHTML +=
-			winners[i];
+			'<i style="background:' + getfillColor(winners[i]) + '"></i> ' + winners[i] + '<br>';
 		}
 	return div;
 	};
