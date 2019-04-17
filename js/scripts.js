@@ -77,23 +77,37 @@ var info = L.control();
 
 info.addTo(map);
 
-var legend = L.control();
+var winners, wLen, i, legend;
 
-legend.onAdd = function (map) {
+winners = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '];
+wLen = winners.length
+legend = L.control();
 
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '],
-        labels = [];
+legend.onAdd = function () {
+	var div = L.DomUtil.create('div', 'info legend');
 
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getfillColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
+	for (i = 0; i < wLen; i++) {
+		div.innerHTML +=
+			winners[i];
+		}
+	return div;
+	};
 
-    return div;
-};
+// legend.onAdd = function () {
+//
+//     var div = L.DomUtil.create('div', 'info legend'),
+//         grades = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '],
+//         labels = [];
+//
+//     // loop through our density intervals and generate a label with a colored square for each interval
+//     for (var i = 0; i < grades.length; i++) {
+//         div.innerHTML +=
+//             '<i style="background:' + getfillColor(grades[i] + 1) + '></i> ' +
+//             grades[i] + (grades[i + 1] ? + grades[i + 1] + '<br>' : ' ');
+//     }
+//
+//     return div;
+// };
 
 legend.addTo(map);
 
@@ -175,7 +189,7 @@ $('.voterturnoutinfo').hide();
 
 var voterturnoutlegend = L.control();
 
-voterturnoutlegend.onAdd = function (map) {
+voterturnoutlegend.onAdd = function () {
 
     var div = L.DomUtil.create('div', 'voterturnoutlegend'),
         grades = [3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
