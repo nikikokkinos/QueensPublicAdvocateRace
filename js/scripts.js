@@ -77,6 +77,26 @@ var info = L.control();
 
 info.addTo(map);
 
+var legend = L.control();
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [' Ulrich ', ' Williams ', ' Viverito ', ' Kim '],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getfillColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
 var TotalVotesLayer = L.geoJSON(RaceResults, {style: votesStyle, onEachFeature: votesonEachFeature})
 
 function votesfillColor(v) {
@@ -145,31 +165,66 @@ voterturnoutinfo.onAdd = function (map) {
 voterturnoutinfo.update = function (props) {
     this._div.innerHTML = '<h4>Voter Turnout by Assembly District</h4>' +  (props ?
         '<b>' + 'Assembly District' + ' ' + props.AssemDist + '</b><br />' + props.QueensADs_TotalVotes
+				+ ' ' + 'Total Votes Cast'
         : 'Hover over an Assembly District');
 };
 
 voterturnoutinfo.addTo(map);
 
-$('.voterturnoutinfo').hide()
+$('.voterturnoutinfo').hide();
 
-var baselayer = {
+var voterturnoutlegend = L.control();
+
+voterturnoutlegend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'voterturnoutlegend'),
+        grades = [3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + votesfillColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+voterturnoutlegend.addTo(map);
+//
+$('.voterturnoutlegend').hide();
+
+var baselayers = {
 	"Who Won each AD": WinnerLayer,
 	"Voter Turnout": TotalVotesLayer,
 }
 
-L.control.layers(baselayer).addTo(map);
+L.control.layers(baselayers).addTo(map);
 
 map.on('baselayerchange', function(eventLayer) {
   if (eventLayer.name === 'Who Won each AD'){
-  $('.info').show()
+  	$('.info').show()
   }
+	if (eventLayer.name === 'Who Won each AD'){
+		$('#legend').show()
+	}
   if (eventLayer.name === 'Who Won each AD'){
-  $('.voterturnoutinfo').hide()
+  	$('.voterturnoutinfo').hide()
   }
+	if (eventLayer.name === 'Who Won each AD'){
+		$('.voterturnoutlegend').hide()
+	}
   if (eventLayer.name === 'Voter Turnout'){
-  $('.voterturnoutinfo').show()
+  	$('.voterturnoutinfo').show()
   }
+	if (eventLayer.name === 'Voter Turnout'){
+		$('.voterturnoutlegend').show()
+	}
   if (eventLayer.name === 'Voter Turnout'){
-  $(".info").hide()
+  	$(".info").hide()
   }
+	if (eventLayer.name === 'Voter Turnout'){
+		$("#legend").hide()
+	}
 });
