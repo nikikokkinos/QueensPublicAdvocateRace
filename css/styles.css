@@ -56,3 +56,21 @@
     margin: 5px;
     color: #efefef;
 }
+
+.voterturnoutinfo {
+    position: absolute;
+    top: 2px;
+    left: -775px;
+    padding: 10px;
+    font: 12px/14px Verdana;
+    color: #efefef;
+    background: #595959;
+    opacity: .8;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+.voterturnoutinfo h4 {
+    margin: 5px;
+    color: #efefef;
+}
