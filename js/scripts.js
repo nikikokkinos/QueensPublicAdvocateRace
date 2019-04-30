@@ -5,7 +5,12 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // establishing external geoJSON file & giving it two arguments for style and onEachFeature
-var WinnerLayer = L.geoJSON(RaceResults, {style: style, onEachFeature: onEachFeature}).addTo(map);
+var WinnerLayer = L.geoJSON(RaceResults,
+	{
+		style: style,
+		onEachFeature: onEachFeature
+	}
+).addTo(map);
 
 // function to color each AD by QueensADs_Winner property
 function getfillColor(QueensADs_Winner) {
@@ -32,8 +37,8 @@ function style(feature) {
 function highlight(e) {
     var layer = e.target;
     layer.setStyle({
-        weight: 2.5,
-        color: '#666',
+        weight: 3,
+        color: 'BLACK',
         dashArray: '',
         fillOpacity: 0.7
     });
@@ -51,8 +56,12 @@ function resetHighlight(e) {
 }
 
 // function to zoom to each AD on click
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
+// function zoomToFeature(e) {
+//     map.fitBounds(e.target.getBounds());
+// }
+
+function popUp(feature, WinnerLayer) {
+  WinnerLayer.bindPopup('<h4>Assembly District</h4>'+ ' ' + feature.properties.AssemDist);
 }
 
 // onEachFeature funtion that iterates all above functions
@@ -60,7 +69,7 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlight,
         mouseout: resetHighlight,
-				click: zoomToFeature,
+				click: popUp,
     });
 }
 
@@ -134,8 +143,8 @@ function votesStyle(feature) {
 function highlight2(e) {
     var layer = e.target;
     layer.setStyle({
-        weight: 2.5,
-        color: '#666',
+        weight: 3,
+        color: 'BLACK',
         dashArray: '',
         fillOpacity: 0.7
     });
@@ -242,23 +251,23 @@ map.on('baselayerchange', function(eventLayer) {
 });
 
 // array of urls associated w/ each AssemDist
-// var assemblyWebsites = [
-// 	"https://nyassembly.gov/mem/Aravella-Simotas",
-// 	"https://nyassembly.gov/mem/Catherine-Nolan",
-// 	"https://nyassembly.gov/mem/Jeffrion-L-Aubry",
-// 	"https://nyassembly.gov/mem/Michael-G-DenDekker",
-// 	"https://nyassembly.gov/mem/Catalina-Cruz",
-// 	"https://nyassembly.gov/mem/Brian-Barnwell",
-// 	"https://nyassembly.gov/mem/Andrew-Hevesi",
-// 	"https://nyassembly.gov/mem/Michael-Miller",
-// 	"https://nyassembly.gov/mem/Stacey-Pheffer-Amato",
-// 	"https://nyassembly.gov/mem/David-I-Weprin",
-// 	"https://nyassembly.gov/mem/Daniel-Rosenthal",
-// 	"https://nyassembly.gov/mem/Nily-Rozic",
-// 	"https://nyassembly.gov/mem/Ron-Kim",
-// 	"https://nyassembly.gov/mem/Edward-C-Braunstein",
-// 	"https://nyassembly.gov/mem/Clyde-Vanel",
-// 	"https://nyassembly.gov/mem/Alicia-Hyndman",
-// 	"https://nyassembly.gov/mem/Vivian-E-Cook",
-// 	"https://nyassembly.gov/mem/Michele-R-Titus",
-// ];
+var assemblyWebsites = [
+	"https://nyassembly.gov/mem/Aravella-Simotas",
+	"https://nyassembly.gov/mem/Catherine-Nolan",
+	"https://nyassembly.gov/mem/Jeffrion-L-Aubry",
+	"https://nyassembly.gov/mem/Michael-G-DenDekker",
+	"https://nyassembly.gov/mem/Catalina-Cruz",
+	"https://nyassembly.gov/mem/Brian-Barnwell",
+	"https://nyassembly.gov/mem/Andrew-Hevesi",
+	"https://nyassembly.gov/mem/Michael-Miller",
+	"https://nyassembly.gov/mem/Stacey-Pheffer-Amato",
+	"https://nyassembly.gov/mem/David-I-Weprin",
+	"https://nyassembly.gov/mem/Daniel-Rosenthal",
+	"https://nyassembly.gov/mem/Nily-Rozic",
+	"https://nyassembly.gov/mem/Ron-Kim",
+	"https://nyassembly.gov/mem/Edward-C-Braunstein",
+	"https://nyassembly.gov/mem/Clyde-Vanel",
+	"https://nyassembly.gov/mem/Alicia-Hyndman",
+	"https://nyassembly.gov/mem/Vivian-E-Cook",
+	"https://nyassembly.gov/mem/Michele-R-Titus",
+];
