@@ -32,12 +32,11 @@ function style(feature) {
     };
 }
 
-// creating onEachFeature function which consists of many functions together: bindPopup, highlight on mouseover, resetHighlight on mouseout, etc 
+// creating onEachFeature function which consists of many functions together: bindPopup, highlight on mouseover, resetHighlight on mouseout, etc
 function onEachFeature(feature, layer) {
  layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist);
 
- function highlight(e) {
-     var layer = e.target;
+ function highlight() {
      layer.setStyle({
          weight: 3,
          color: 'BLACK',
@@ -57,7 +56,7 @@ function onEachFeature(feature, layer) {
  layer.on({
   mouseover: highlight,
   mouseout: resetHighlight,
-  });
+  })
 };
 
 // creating control that changes innerHTML based on mouse events
@@ -102,7 +101,10 @@ legend.onAdd = function () {
 legend.addTo(map);
 
 // same code structure as above, but applied to a new layer
-var TotalVotesLayer = L.geoJSON(RaceResults, {style: votesStyle, onEachFeature: votesonEachFeature})
+var TotalVotesLayer = L.geoJSON(RaceResults, {
+	style: votesStyle,
+	onEachFeature: votesonEachFeature
+})
 
 function votesfillColor(QueensADs_TotalVotes) {
     return QueensADs_TotalVotes >= 10000 	? '#0c2c84' :
@@ -116,6 +118,34 @@ function votesfillColor(QueensADs_TotalVotes) {
 					 								'black' ;
 }
 
+function votesonEachFeature(feature, layer) {
+	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist)
+
+	function highlight2() {
+	    // var layer = e.target;
+	    layer.setStyle({
+	        weight: 3,
+	        color: 'BLACK',
+	        dashArray: '',
+	        fillOpacity: 0.7
+	    });
+	    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+	        layer.bringToFront();
+	    }
+			voterturnoutinfo.update(layer.feature.properties);
+	}
+
+	function resetHighlight2(e) {
+	    TotalVotesLayer.resetStyle(e.target);
+			voterturnoutinfo.update();
+	}
+
+  layer.on({
+      mouseover: highlight2,
+      mouseout: resetHighlight2,
+  });
+}
+
 function votesStyle(feature) {
     return {
         fillColor: votesfillColor(feature.properties.QueensADs_TotalVotes),
@@ -125,37 +155,6 @@ function votesStyle(feature) {
         dashArray: '2',
         fillOpacity: 0.7
     };
-}
-
-function highlight2(e) {
-    var layer = e.target;
-    layer.setStyle({
-        weight: 3,
-        color: 'BLACK',
-        dashArray: '',
-        fillOpacity: 0.7
-    });
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
-		voterturnoutinfo.update(layer.feature.properties);
-}
-
-function resetHighlight2(e) {
-    TotalVotesLayer.resetStyle(e.target);
-		voterturnoutinfo.update();
-}
-
-function zoomToFeature2(e) {
-    map.fitBounds(e.target.getBounds());
-}
-
-function votesonEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlight2,
-        mouseout: resetHighlight2,
-				click: zoomToFeature2,
-    });
 }
 
 var voterturnoutinfo = L.control();
