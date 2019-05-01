@@ -34,7 +34,7 @@ function style(feature) {
 
 // creating onEachFeature function which consists of many functions together: bindPopup, highlight on mouseover, resetHighlight on mouseout, etc
 function onEachFeature(feature, layer) {
- layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + ' ' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL);
+ layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL);
 
  function highlight() {
      layer.setStyle({
@@ -119,7 +119,7 @@ function votesfillColor(QnsPubAdvocateResults_TotalVotes) {
 }
 
 function votesonEachFeature(feature, layer) {
-	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + ' ' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL)
+	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL)
 
 	function highlight2() {
 	    // var layer = e.target;
