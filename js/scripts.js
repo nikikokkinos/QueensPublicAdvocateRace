@@ -12,18 +12,18 @@ var WinnerLayer = L.geoJSON(RaceResults,
 	}).addTo(map)
 
 // function to color each AD by QueensADs_Winner property
-function getfillColor(QueensADs_Winner) {
-    return QueensADs_Winner === ' Ulrich '		? '#cc0c0c' :
-           QueensADs_Winner === ' Williams '	? '#35a7ff' :
-           QueensADs_Winner === ' Viverito '	? '#c80ccc' :
-           QueensADs_Winner === ' Kim '				? '#0ccc58' :
-                      													'#b7b7b5';
+function getfillColor(QnsPubAdvocateResults_Winner) {
+    return QnsPubAdvocateResults_Winner === ' Ulrich '		? '#cc0c0c' :
+           QnsPubAdvocateResults_Winner === ' Williams '	? '#35a7ff' :
+           QnsPubAdvocateResults_Winner === ' Viverito '	? '#c80ccc' :
+           QnsPubAdvocateResults_Winner === ' Kim '				? '#0ccc58' :
+                      																			'#b7b7b5';
 }
 
 // funtion to style each AD by the above getfillColor function
 function style(feature) {
     return {
-        fillColor: getfillColor(feature.properties.QueensADs_Winner),
+        fillColor: getfillColor(feature.properties.QnsPubAdvocateResults_Winner),
         weight: 1,
         opacity: 1,
         color: 'black',
@@ -73,9 +73,9 @@ var info = L.control();
   this._div.innerHTML =
     '<h4>2019 Public Advocate Special Election Results</h4>' +
     (props ? '<b>' + 'Assembly District' + ' ' + props.AssemDist +
-    ' ' + ' - Votes Cast For - ' + '</b><br/>' + 'Ulrich' + ' ' + props.QueensADs_Ulrich +
-    '</b><br/>' + 'Williams' + ' ' + props.QueensADs_Williams + '</b><br/>' + 'Viverito' + ' ' +
-    props.QueensADs_Viverito + '</b><br/>' + 'Kim' + ' ' + props.QueensADs_Kim
+    ' ' + ' - Votes Cast For - ' + '</b><br/>' + 'Ulrich' + ' ' + props.QnsPubAdvocateResults_Ulrich +
+    '</b><br/>' + 'Williams' + ' ' + props.QnsPubAdvocateResults_Williams + '</b><br/>' + 'Viverito' + ' ' +
+    props.QnsPubAdvocateResults_Viverito + '</b><br/>' + 'Kim' + ' ' + props.QnsPubAdvocateResults_Kim
     : 'Hover over an Assembly District to view voting results');
   };
 
@@ -106,16 +106,16 @@ var TotalVotesLayer = L.geoJSON(RaceResults, {
 	onEachFeature: votesonEachFeature
 })
 
-function votesfillColor(QueensADs_TotalVotes) {
-    return QueensADs_TotalVotes >= 10000 	? '#0c2c84' :
-					 QueensADs_TotalVotes >= 9000 	? '#225ea8' :
-           QueensADs_TotalVotes >= 8000 	? '#1d91c0' :
-					 QueensADs_TotalVotes >= 7000 	? '#41b6c4' :
-           QueensADs_TotalVotes >= 6000		? '#7fcdbb' :
-					 QueensADs_TotalVotes >= 5000		? '#c7e9b4' :
-					 QueensADs_TotalVotes >= 4000		? '#edf8b1' :
-					 QueensADs_TotalVotes >= 3000		? '#ffffd9' :
-					 								'black' ;
+function votesfillColor(QnsPubAdvocateResults_TotalVotes) {
+    return QnsPubAdvocateResults_TotalVotes >= 10000 	? '#0c2c84' :
+					 QnsPubAdvocateResults_TotalVotes >= 9000 	? '#225ea8' :
+           QnsPubAdvocateResults_TotalVotes >= 8000 	? '#1d91c0' :
+					 QnsPubAdvocateResults_TotalVotes >= 7000 	? '#41b6c4' :
+           QnsPubAdvocateResults_TotalVotes >= 6000		? '#7fcdbb' :
+					 QnsPubAdvocateResults_TotalVotes >= 5000		? '#c7e9b4' :
+					 QnsPubAdvocateResults_TotalVotes >= 4000		? '#edf8b1' :
+					 QnsPubAdvocateResults_TotalVotes >= 3000		? '#ffffd9' :
+					 																							'black' ;
 }
 
 function votesonEachFeature(feature, layer) {
@@ -148,7 +148,7 @@ function votesonEachFeature(feature, layer) {
 
 function votesStyle(feature) {
     return {
-        fillColor: votesfillColor(feature.properties.QueensADs_TotalVotes),
+        fillColor: votesfillColor(feature.properties.QnsPubAdvocateResults_TotalVotes),
         weight: 1,
         opacity: 1,
         color: 'black',
@@ -168,7 +168,7 @@ voterturnoutinfo.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 voterturnoutinfo.update = function (props) {
     this._div.innerHTML = '<h4>Voter Turnout by Assembly District</h4>' +  (props ?
-        '<b>' + 'Assembly District' + ' ' + props.AssemDist + '</b><br />' + props.QueensADs_TotalVotes
+        '<b>' + 'Assembly District' + ' ' + props.AssemDist + '</b><br />' + props.QnsPubAdvocateResults_TotalVotes
 				+ ' ' + 'Total Votes Cast'
         : 'Hover over an Assembly District');
 };
