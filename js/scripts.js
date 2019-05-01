@@ -34,9 +34,13 @@ function style(feature) {
 
 // creating onEachFeature function which consists of many functions together: bindPopup, highlight on mouseover, resetHighlight on mouseout, etc
 function onEachFeature(feature, layer) {
- layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL);
 
- function highlight() {
+	var assemblyWebsite = feature.properties.QnsPubAdvocateResults_URL
+	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' +
+	'Website:' + ' ' + '<a href="' + assemblyWebsite + '">Visit Website</a>' );
+
+	// layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + assemblyWebsite);
+	function highlight() {
      layer.setStyle({
          weight: 3,
          color: 'BLACK',
@@ -235,3 +239,31 @@ map.on('baselayerchange', function(eventLayer) {
 		$(".legend").hide()
 	}
 });
+
+// var container = L.control();
+//
+//   container.onAdd = function (map) {
+//     this._div = L.DomUtil.create('div', 'container');
+//     this.update();
+//     return this._div;
+//   };
+//
+// // method that we will use to update the control based on feature properties passed
+//   info.update = function (feature, layer) {
+//   this._div.innerHTML =
+//     '<h4>Noteworthy Stats</h4>' +
+// 		'Total Votes Cast:' + feature.properties. <br />
+// 		Eric Ulrich % of Vote: <strong class ="alignright">29%</strong><br />
+// 		Jumaane Williams % of Vote: <strong class="alignright">23%</strong><br />
+// 		Melissa Mark-Viverito % of Vote: <strong class="alignright">10%</strong><br />
+// 		Ron Kim % of Vote: <strong class="alignright">6%</strong><br />
+// 		% of All Votes Cast For Candidates Not Eric Ulrich: <strong class="alignright">62%</strong><br />
+//
+//     // (props ? '<b>' + 'Assembly District' + ' ' + props.AssemDist +
+//     // ' ' + ' - Votes Cast For - ' + '</b><br/>' + 'Ulrich' + ' ' + props.QnsPubAdvocateResults_Ulrich +
+//     // '</b><br/>' + 'Williams' + ' ' + props.QnsPubAdvocateResults_Williams + '</b><br/>' + 'Viverito' + ' ' +
+//     // props.QnsPubAdvocateResults_Viverito + '</b><br/>' + 'Kim' + ' ' + props.QnsPubAdvocateResults_Kim
+//     // : 'Hover over an Assembly District to view voting results');
+//   };
+//
+// container.addTo(map);
