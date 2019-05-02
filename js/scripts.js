@@ -36,8 +36,8 @@ function style(feature) {
 function onEachFeature(feature, layer) {
 
 	var assemblyWebsite = feature.properties.QnsPubAdvocateResults_URL
-	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' +
-	'Website:' + ' ' + '<a href="' + assemblyWebsite + '">Visit Website</a>' );
+	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + ' ' +
+	'<a href="' + assemblyWebsite + '"  target="_blank" >Visit Website</a>' );
 
 	// layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + assemblyWebsite);
 	function highlight() {
@@ -123,7 +123,11 @@ function votesfillColor(QnsPubAdvocateResults_TotalVotes) {
 }
 
 function votesonEachFeature(feature, layer) {
-	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + '</b><br />' + 'Website:' + ' ' + feature.properties.QnsPubAdvocateResults_URL)
+
+	var assemblyWebsite = feature.properties.QnsPubAdvocateResults_URL
+
+	layer.bindPopup('<h4>Assembly District</h4>' + ' ' + feature.properties.AssemDist + ' ' +
+	'<a href="' + assemblyWebsite + '"  target="_blank" >Visit Website</a>' )
 
 	function highlight2() {
 	    // var layer = e.target;
